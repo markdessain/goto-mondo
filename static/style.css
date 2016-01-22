@@ -1,0 +1,16 @@
+
+#container {
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.area {
+    fill: gray;
+    stroke: #fff;
+}
+
+.selected {
+    fill: lightgray;
+    stroke: lightgray;
+}

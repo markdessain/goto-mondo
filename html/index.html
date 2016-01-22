@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:200">
+    <link rel="stylesheet" href="http://purecss.io/combo/1.18.13?/css/main-grid.css&amp;/css/main.css&amp;/css/rainbow/baby-blue.css">
+
+</head>
+<body>
+
+    <div id="container">
+        <h1>GotoMondo</h1>
+        <hr />
+
+
+        <table class="pure-table pure-table-horizontal">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Test</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="{% if not success %}red{% endif %}">
+                    <td>x</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div id="map"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+    <script src="/static/scripts.js"></script>
+</body>
+</html>
