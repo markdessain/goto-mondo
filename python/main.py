@@ -23,6 +23,7 @@ def route_index():
 
 @app.route('/webhook', methods=['POST'])
 def route_webhook():
+    return ''
     transaction = json.loads(request.data.decode('utf8'))
 
     if not transaction['data']['is_load']:
@@ -38,7 +39,7 @@ def route_webhook():
 
         current_count = redis_client.get(redis_key)
         if int(current_count) > int(mondo_visit_count):
-            name = merchant['name']
+            name = 'Try %s next time?' % merchant['name']
             body = "You've already been to %s %s times this week. Why try here instead?" % (name, current_count)
             long = merchant['address']['longitude']
             lat = merchant['address']['latitude']
