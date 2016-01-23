@@ -22,7 +22,7 @@ redis_client = redis.from_url(env.get('REDIS_URL'))
 
 mondo_env = env.get('MONDO_ENV')
 mondo_visit_count = env.get('MONDO_VISIT_COUNT')
-mondo_account_mapping = dict([a.split(':') for a in env.get('MONDO_ACCOUNT_MAPPING').split(',')])
+mondo_account_mapping = dict([env.get('MONDO_ACCOUNT_%s' % i).split(':') for i in range(1, 5)])
 
 foursquare_client_id = env.get('FOURSQUARE_CLIENT_ID')
 foursquare_client_secret = env.get('FOURSQUARE_CLIENT_SECRET')
