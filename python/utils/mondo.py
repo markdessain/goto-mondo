@@ -22,7 +22,7 @@ def post_to_feed(account_id, title, body, image_url):
     }
 
     try:
-        result = requests.post('https://staging-api.getmondo.co.uk/feed', data=data, headers=headers).json()
+        result = requests.post('%s/feed' % settings.mondo_env, data=data, headers=headers).json()
         return result
     except Exception as e:
         log.error(e)

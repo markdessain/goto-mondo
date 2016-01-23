@@ -3,7 +3,7 @@ import logging
 import datetime
 
 from flask import Flask, render_template, request
-from settings import redis_client
+from settings import redis_client, mondo_visit_count
 
 from utils import foursquare
 from utils import mondo
@@ -37,7 +37,7 @@ def route_webhook():
         redis_client.incr(redis_key, 1)
 
         current_count = redis_client.get(redis_key)
-        if int(current_count) > 1:
+        if int(current_count) > int(mondo_visit_count):
             name = merchant['name']
             body = "You've already been to %s %s times this week. Why try here instead?" % (name, current_count)
             long = merchant['address']['longitude']
