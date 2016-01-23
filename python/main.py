@@ -39,7 +39,7 @@ def route_webhook():
         current_count = redis_client.get(redis_key)
         if int(current_count) > int(mondo_visit_count):
             name = merchant['name']
-            body = "You've already been to %s %s times this week. Why try here instead?" % (name, current_count)
+            body = "You've already been to %s %s times this week. Why not try here instead?" % (name, current_count)
             long = merchant['address']['longitude']
             lat = merchant['address']['latitude']
 
