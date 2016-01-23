@@ -5,6 +5,8 @@ from pprint import pprint
 from flask import Flask, render_template, request
 
 import settings
+import redis
+from datetime import datetime
 
 from utils import foursquare
 from utils import mondo
@@ -31,23 +33,34 @@ def route_webhook():
         merchant = transaction['data']['merchant']
         account_id = transaction['data']['account_id']
 
-        name = merchant['name']
-        long = merchant['address']['longitude']
-        lat = merchant['address']['latitude']
+        date = datetime.date.today()
+        year_and_week = "%s_%s" % (date.isocalendar()[1], date.year)
 
-        venue_id = foursquare.get_venue_id(name, lat, long)
+        redis_client = redis.Redis()
+        redis_key = "%s_%s_%s" % (account_id, merchant['id'], year_and_week)
+        redis_client.incr(redis_key, 1)
 
-        similar_venues = foursquare.get_similar_venues(venue_id)
+        current_count = redis_client.get(redis_key)
+        if current_count > 1:
+            name = merchant['name']
+            long = merchant['address']['longitude']
+            lat = merchant['address']['latitude']
 
-        if similar_venues['items']:
-            title = similar_venues['items'][0]['name']
-            url = similar_venues['items'][0].get('url')
-            image_url = similar_venues['items'][0]['categories'][0]['icon']['prefix'] + 'bg_64' + similar_venues['items'][0]['categories'][0]['icon']['suffix']
+            venue_id = foursquare.get_venue_id(name, lat, long)
 
-            mondo.post_to_feed(account_id, title, url, image_url)
+            similar_venues = foursquare.get_similar_venues(venue_id)
 
+            if similar_venues['items']:
+                title = similar_venues['items'][0]['name']
+                url = similar_venues['items'][0].get('url')
+                image_url = similar_venues['items'][0]['categories'][0]['icon']['prefix'] + 'bg_64' + similar_venues['items'][0]['categories'][0]['icon']['suffix']
+
+                mondo.post_to_feed(account_id, title, url, image_url)
+
+            else:
+                log.info('Nothing Similar')
         else:
-            log.info('Nothing Similar')
+            log.info('Only been once')
     else:
         log.info('Mondo Top up')
 
