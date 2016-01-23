@@ -38,7 +38,7 @@ def route_webhook():
 
         current_count = redis_client.get(redis_key)
         if int(current_count) > int(mondo_visit_count):
-            name = 'Try %s next time?' % merchant['name']
+            name = merchant['name']
             body = "You've already been to %s %s times this week. Why try here instead?" % (name, current_count)
             long = merchant['address']['longitude']
             lat = merchant['address']['latitude']
@@ -48,7 +48,7 @@ def route_webhook():
             similar_venues = foursquare.get_similar_venues(venue_id)
 
             if similar_venues['items']:
-                title = similar_venues['items'][0]['name']
+                title = 'Try %s next time?' % similar_venues['items'][0]['name']
                 image_url = similar_venues['items'][0]['categories'][0]['icon']['prefix'] + 'bg_64' + similar_venues['items'][0]['categories'][0]['icon']['suffix']
 
                 mondo.post_to_feed(account_id, title, body, image_url)
