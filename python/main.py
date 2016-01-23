@@ -23,7 +23,6 @@ def route_index():
 
 @app.route('/webhook', methods=['POST'])
 def route_webhook():
-    return ''
     transaction = json.loads(request.data.decode('utf8'))
 
     if not transaction['data']['is_load']:
