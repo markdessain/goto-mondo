@@ -39,6 +39,7 @@ def route_webhook():
         current_count = redis_client.get(redis_key)
         if int(current_count) > 1:
             name = merchant['name']
+            body = "You've already been to %s %s times this week. Why try here instead?" % (name, current_count)
             long = merchant['address']['longitude']
             lat = merchant['address']['latitude']
 
@@ -48,10 +49,9 @@ def route_webhook():
 
             if similar_venues['items']:
                 title = similar_venues['items'][0]['name']
-                url = similar_venues['items'][0].get('url')
                 image_url = similar_venues['items'][0]['categories'][0]['icon']['prefix'] + 'bg_64' + similar_venues['items'][0]['categories'][0]['icon']['suffix']
 
-                mondo.post_to_feed(account_id, title, url, image_url)
+                mondo.post_to_feed(account_id, title, body, image_url)
 
             else:
                 log.info('Nothing Similar')
