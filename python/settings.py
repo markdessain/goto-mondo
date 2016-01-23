@@ -20,12 +20,10 @@ logging.basicConfig(level=getattr(logging, env.get('LOG_LEVEL').upper()))
 
 redis_client = redis.from_url(env.get('REDIS_URL'))
 
-mondo_access_token = env.get('MONDO_ACCESS_TOKEN')
-mondo_account_id = env.get('MONDO_ACCOUNT_ID')
 mondo_env = env.get('MONDO_ENV')
 mondo_visit_count = env.get('MONDO_VISIT_COUNT')
+mondo_account_mapping = dict([a.split(':') for a in env.get('MONDO_ACCOUNT_MAPPING').split(',')])
 
 foursquare_client_id = env.get('FOURSQUARE_CLIENT_ID')
 foursquare_client_secret = env.get('FOURSQUARE_CLIENT_SECRET')
 foursquare_api_version = env.get('FOURSQUARE_API_VERSION')
-

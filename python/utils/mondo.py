@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 def post_to_feed(account_id, title, body, image_url):
 
     headers = {
-        'Authorization': 'Bearer %s' % settings.mondo_access_token,
+        'Authorization': 'Bearer %s' % settings.mondo_account_mapping.get(account_id),
     }
 
     data = {
