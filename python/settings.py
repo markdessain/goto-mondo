@@ -1,7 +1,7 @@
 import os
 import logging
 
-# import redis
+import redis
 
 
 def get_env():
@@ -18,7 +18,7 @@ env = get_env()
 
 logging.basicConfig(level=getattr(logging, env.get('LOG_LEVEL').upper()))
 
-# redis_db = redis.Redis(env.get('REDIS_HOST'), port=int(env.get('REDIS_PORT')))
+redis_client = redis.Redis(env.get('REDIS_HOST'), port=int(env.get('REDIS_PORT')), decode_responses=True)
 
 mondo_access_token = env.get('MONDO_ACCESS_TOKEN')
 mondo_account_id = env.get('MONDO_ACCOUNT_ID')

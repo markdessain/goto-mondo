@@ -1,12 +1,9 @@
 import json
 import logging
-from pprint import pprint
+import datetime
 
 from flask import Flask, render_template, request
-
-import settings
-import redis
-from datetime import datetime
+from settings import redis_client
 
 from utils import foursquare
 from utils import mondo
@@ -36,12 +33,11 @@ def route_webhook():
         date = datetime.date.today()
         year_and_week = "%s_%s" % (date.isocalendar()[1], date.year)
 
-        redis_client = redis.Redis()
         redis_key = "%s_%s_%s" % (account_id, merchant['id'], year_and_week)
         redis_client.incr(redis_key, 1)
 
         current_count = redis_client.get(redis_key)
-        if current_count > 1:
+        if int(current_count) > 1:
             name = merchant['name']
             long = merchant['address']['longitude']
             lat = merchant['address']['latitude']
@@ -65,8 +61,6 @@ def route_webhook():
         log.info('Mondo Top up')
 
     return ''
-
-
 
 
 if __name__ == "__main__":
