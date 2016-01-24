@@ -1,6 +1,6 @@
 import json
 
-from utils.string import random_string
+from utils.strings import random_string
 from settings import redis_client
 
 
