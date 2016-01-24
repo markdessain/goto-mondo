@@ -58,17 +58,3 @@ def get_similar_venues(venue_id):
     except Exception as e:
         log.error(e)
         return []
-
-
-
-#
-# long = -0.0880558
-# lat = 51.5262576
-# name = 'Starbucks'
-#
-# venue_id = get_venue_id(name, lat, long)
-# print(venue_id)
-# similar = get_similar_venues(venue_id)
-# next = get_next_venues(venue_id)
-# print(similar)
-# print(next)
