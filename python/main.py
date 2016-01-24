@@ -3,10 +3,11 @@ import logging
 import datetime
 
 from flask import Flask, render_template, request
-from settings import redis_client, mondo_visit_count
+from settings import redis_client, mondo_visit_count, page_url
 
 from utils import foursquare
 from utils import mondo
+from models import Suggestion
 
 app = Flask(__name__, template_folder='../html', static_folder='../static')
 app.config['DEBUG'] = True
@@ -17,8 +18,13 @@ log = logging.getLogger(__name__)
 
 @app.route('/')
 def route_index():
-    log.info('test')
     return render_template('index.html')
+
+
+@app.route('/suggestion/<suggestion_id>')
+def route_suggestion(suggestion_id):
+    suggestion = Suggestion.get(suggestion_id)
+    return render_template('suggestion.html', suggestion=suggestion)
 
 
 @app.route('/webhook', methods=['POST'])
@@ -39,7 +45,7 @@ def route_webhook():
         current_count = redis_client.get(redis_key)
         if int(current_count) > int(mondo_visit_count):
             name = merchant['name']
-            body = "You've already been to %s %s times this week. Why not try here instead?" % (name, current_count)
+            body = "You've already been to %s %s times this week. Why try here instead?" % (name, int(current_count))
             long = merchant['address']['longitude']
             lat = merchant['address']['latitude']
 
@@ -48,11 +54,13 @@ def route_webhook():
             similar_venues = foursquare.get_similar_venues(venue_id)
 
             if similar_venues['items']:
-                title = 'Try %s next time?' % similar_venues['items'][0]['name']
+                new_name = similar_venues['items'][0]['name']
+                title = 'Try %s next time?' % new_name
                 image_url = similar_venues['items'][0]['categories'][0]['icon']['prefix'] + 'bg_64' + similar_venues['items'][0]['categories'][0]['icon']['suffix']
 
-                mondo.post_to_feed(account_id, title, body, image_url)
-
+                suggestion_id = Suggestion(new_name, name, current_count).save()
+                url = '%s/suggestion/%s' % (page_url, suggestion_id)
+                mondo.post_to_feed(account_id, title, body, url, image_url)
             else:
                 log.info('Nothing Similar')
         else:

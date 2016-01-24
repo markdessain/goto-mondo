@@ -7,7 +7,7 @@ import settings
 log = logging.getLogger(__name__)
 
 
-def post_to_feed(account_id, title, body, image_url):
+def post_to_feed(account_id, title, body, url, image_url):
 
     headers = {
         'Authorization': 'Bearer %s' % settings.mondo_account_mapping.get(account_id),
@@ -16,6 +16,7 @@ def post_to_feed(account_id, title, body, image_url):
     data = {
         'account_id': account_id,
         'type': 'basic',
+        'url': url,
         'params[title]': title,
         'params[image_url]': image_url,
         'params[body]': body

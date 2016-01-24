@@ -27,3 +27,5 @@ mondo_account_mapping = dict([env.get('MONDO_ACCOUNT_%s' % i).split(':') for i i
 foursquare_client_id = env.get('FOURSQUARE_CLIENT_ID')
 foursquare_client_secret = env.get('FOURSQUARE_CLIENT_SECRET')
 foursquare_api_version = env.get('FOURSQUARE_API_VERSION')
+
+page_url = env.get('PAGE_URL')
