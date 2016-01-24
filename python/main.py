@@ -51,18 +51,21 @@ def route_webhook():
 
             venue_id = foursquare.get_venue_id(name, lat, long)
 
-            similar_venues = foursquare.get_similar_venues(venue_id)
+            if venue_id:
+                similar_venues = foursquare.get_similar_venues(venue_id)
 
-            if similar_venues['items']:
-                new_name = similar_venues['items'][0]['name']
-                title = 'Try %s next time?' % new_name
-                image_url = similar_venues['items'][0]['categories'][0]['icon']['prefix'] + 'bg_64' + similar_venues['items'][0]['categories'][0]['icon']['suffix']
+                if similar_venues['items']:
+                    new_name = similar_venues['items'][0]['name']
+                    title = 'Try %s next time?' % new_name
+                    image_url = similar_venues['items'][0]['categories'][0]['icon']['prefix'] + 'bg_64' + similar_venues['items'][0]['categories'][0]['icon']['suffix']
 
-                suggestion_id = Suggestion(new_name, name, current_count).save()
-                url = '%s/suggestion/%s' % (page_url, suggestion_id)
-                mondo.post_to_feed(account_id, title, body, url, image_url)
+                    suggestion_id = Suggestion(new_name, name, current_count).save()
+                    url = '%s/suggestion/%s' % (page_url, suggestion_id)
+                    mondo.post_to_feed(account_id, title, body, url, image_url)
+                else:
+                    log.info('Nothing Similar')
             else:
-                log.info('Nothing Similar')
+                log.info('Could not find the venue')
         else:
             log.info('Only been once')
     else:
