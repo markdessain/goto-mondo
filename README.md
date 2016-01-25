@@ -5,7 +5,7 @@
 - https://www.github.com/scottrobertson
 
 ####Description:
-GoToMondo was built during the third hackathon run by https://getmondo.co.uk/. It uses the Mondo API and realtime data from Mondo to suggest alternative places to go to, stopping you from falling into a routine. 
+GoToMondo was built during the third hackathon run by https://getmondo.co.uk/. It uses the Mondo API which provides realtime data, enriches it with FourSquare data to suggest alternative places to go to, stopping you from falling into a routine. 
 
 ![Preview](https://raw.githubusercontent.com/markdessain/gotomondo/master/preview.png)
 
