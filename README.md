@@ -1,8 +1,8 @@
 # GoToMondo
 
 ####Built by:
-- https://www.github.com/markdessain
-- https://www.github.com/scottrobertson
+- https://www.github.com/markdessain / https://www.twitter.com/markdessain
+- https://www.github.com/scottrobertson / https://www.twitter.com/scottymeuk
 
 ####Description:
 GoToMondo was built during the third [#mondohack](https://twitter.com/search?q=%23mondohack) run by https://getmondo.co.uk/. It uses the Mondo API which provides realtime transaction data, enriches it with FourSquare data to suggest alternative places to go to, stopping you from falling into a routine. 
