@@ -37,7 +37,6 @@ class Suggestion(Model):
         }
         redis_client.set(redis_key, json.dumps(data))
         self.redis_key = redis_key
-        return redis_key
 
     @staticmethod
     def get(redis_key):
@@ -69,7 +68,6 @@ class Transaction(Model):
         redis_client.incr(redis_key, 1)
 
         self.redis_key = redis_key
-        return redis_key
 
     @property
     def visited_count(self):
