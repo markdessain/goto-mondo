@@ -5,7 +5,7 @@
 - https://www.github.com/scottrobertson
 
 ####Description:
-GoToMondo was built during the third [#mondohack](https://twitter.com/search?q=%23mondohack) run by https://getmondo.co.uk/. It uses the Mondo API which provides realtime data, enriches it with FourSquare data to suggest alternative places to go to, stopping you from falling into a routine. 
+GoToMondo was built during the third [#mondohack](https://twitter.com/search?q=%23mondohack) run by https://getmondo.co.uk/. It uses the Mondo API which provides realtime transaction data, enriches it with FourSquare data to suggest alternative places to go to, stopping you from falling into a routine. 
 
 ![Preview](https://raw.githubusercontent.com/markdessain/gotomondo/master/preview.png)
 
