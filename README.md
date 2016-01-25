@@ -10,7 +10,7 @@ GoToMondo was built during the third [#mondohack](https://twitter.com/search?q=%
 ![Preview](https://raw.githubusercontent.com/markdessain/gotomondo/master/preview.png)
 
 ####Caution:
- - To be used by *developers only*. You need to manually add your account_id and access_tokens into the environment and run your own server. Please do not do this if you're unsure what you're doing. The app will post items to your feed.
+To be used by *developers only*. You need to manually add your account_id and access_tokens into the environment and run your own server. Please do not do this if you're unsure what you're doing. The app will post items to your feed.
 
 ####Install:
 - Install Python 3.x and pip
