@@ -55,4 +55,4 @@ To be used by *developers only*. You need to manually add your account_id and ac
 - REDIS_URL
   - Default: redis://localhost:6379 
 - PAGE_URL
-  - Path to view your . The suggestions will direct back to the /suggestions page
+  - Your domain which will be hosting the page. The suggestions will direct back to the /suggestions page
